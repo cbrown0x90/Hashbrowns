@@ -30,7 +30,6 @@ for board in boards:
     browser.follow_link(board)
     while True:
         nextPage = browser.get_link('Next »')
-        print(nextPage)
         posts = browser.select('div.forum_topics_title a')
         for post in posts:
             browser.follow_link(post)
