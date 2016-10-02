@@ -13,7 +13,7 @@ for line in fin:
         line = ""
     if "nike roshe" in line:
         line = ""
-    if "This post was edited by" in line:
+    if "This post was edited by" in line or "poke poke poke" in line:
         line = ""
         
     fout.write(line)
