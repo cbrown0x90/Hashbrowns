@@ -28,18 +28,18 @@ boards = browser.select('div.forum_title a')
 
 for board in boards:
     browser.follow_link(board)
-    posts = browser.select('div.forum_topics_title a')
-    print(posts)
-    for post in posts:
-        browser.follow_link(post)
-        text = browser.select('div.forum_topic_posts_info_body')
-        for tag in text:
-            if (is_ascii(tag.text.strip())):
-                print(remove_html_markup(tag.text.strip()))
-            else:
-                 continue
-        
-        browser.back()
-    browser.back()
+    while True:
+        nextPage = browser.get_link('Next »')
+        posts = browser.select('div.forum_topics_title a')
+        for post in posts:
+            browser.follow_link(post)
+            text = browser.select('div.forum_topic_posts_info_body')
+            for tag in text:
+                if (is_ascii(tag.text.strip())):
+                    print(remove_html_markup(tag.text.strip()))
+                else:
+                    continue
 
-#print(out)
+        if nextPage == None:
+            break
+        browser.follow_link(nextPage)
