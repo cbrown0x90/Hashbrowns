@@ -7,22 +7,13 @@ fin = open(infile)
 fout = open(outfile, "w+")
 delete = False
 for line in fin:
-    if "</a>]" in line and delete:
-        delete = False
+    if "Edited by" in line:
         line = ""
-    if "nike roshe" in line and not delete:
+    if "[<a " in line:
         line = ""
-        delete = False
-    if "I kobe shoes" in line and not delete:
-        delete = False
+    if "nike roshe" in line:
         line = ""
-    if "atlanta falcons" in line and not delete:
-        delete = False
-        line = ""
-    if "[<a " in line or delete:
-        delete = True
-        line = ""
-    if "This post was edited by" in line:
+    if "This post was edited by" in line or "poke poke poke" in line or "......" in line:
         line = ""
         
     fout.write(line)
