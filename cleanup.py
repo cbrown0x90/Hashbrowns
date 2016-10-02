@@ -1,7 +1,7 @@
 #!/bin/env python
 
-infile = "stuff.txt"
-outfile = "out.txt"
+infile = "7chan.txt"
+outfile = "7out.txt"
 
 fin = open(infile)
 fout = open(outfile, "w+")
@@ -13,8 +13,9 @@ for line in fin:
         line = ""
     if "nike roshe" in line:
         line = ""
-    if "This post was edited by" in line or "poke poke poke" in line or "......" in line:
+    if "This post was edited by" in line or "poke poke poke" in line or "......" in line or "http://" in line or "#" in line or "https://" in line:
         line = ""
+
         
     fout.write(line)
 fin.close()
