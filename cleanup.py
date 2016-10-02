@@ -1,7 +1,7 @@
 #!/bin/env python
 
-infile = "7chan.txt"
-outfile = "7out.txt"
+infile = "8ch.txt"
+outfile = "8out.txt"
 
 fin = open(infile)
 fout = open(outfile, "w+")
