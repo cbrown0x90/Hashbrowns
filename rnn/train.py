@@ -14,7 +14,7 @@ from model import Model
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', type=str, default='data/emo',
+    parser.add_argument('--data_dir', type=str, default='../data/emo',
                        help='data directory containing input.txt')
     parser.add_argument('--save_dir', type=str, default='save',
                        help='directory to store checkpointed models')
@@ -37,9 +37,9 @@ def main():
     parser.add_argument('--learning_rate', type=float, default=0.002,
                        help='learning rate')
     parser.add_argument('--decay_rate', type=float, default=0.97,
-                       help='decay rate for rmsprop')                       
+                       help='decay rate for rmsprop')
     parser.add_argument('--init_from', type=str, default=None,
-                       help="""continue training from saved model at this path. Path must contain files saved by previous training process: 
+                       help="""continue training from saved model at this path. Path must contain files saved by previous training process:
                             'config.pkl'        : configuration;
                             'words_vocab.pkl'   : vocabulary definitions;
                             'checkpoint'        : paths to model file(s) (created by tf).
@@ -52,10 +52,10 @@ def main():
 def train(args):
     data_loader = TextLoader(args.data_dir, args.batch_size, args.seq_length)
     args.vocab_size = data_loader.vocab_size
-    
+
     # check compatibility if training is continued from previously saved model
     if args.init_from is not None:
-        # check if all necessary files exist 
+        # check if all necessary files exist
         assert os.path.isdir(args.init_from)," %s must be a a path" % args.init_from
         assert os.path.isfile(os.path.join(args.init_from,"config.pkl")),"config.pkl file does not exist in path %s"%args.init_from
         assert os.path.isfile(os.path.join(args.init_from,"words_vocab.pkl")),"words_vocab.pkl.pkl file does not exist in path %s" % args.init_from
@@ -69,18 +69,18 @@ def train(args):
         need_be_same=["model","rnn_size","num_layers","seq_length"]
         for checkme in need_be_same:
             assert vars(saved_model_args)[checkme]==vars(args)[checkme],"Command line argument and saved model disagree on '%s' "%checkme
-        
+
         # open saved vocab/dict and check if vocabs/dicts are compatible
         with open(os.path.join(args.init_from, 'words_vocab.pkl'), 'rb') as f:
             saved_words, saved_vocab = cPickle.load(f)
         assert saved_words==data_loader.words, "Data and loaded model disagreee on word set!"
         assert saved_vocab==data_loader.vocab, "Data and loaded model disagreee on dictionary mappings!"
-        
+
     with open(os.path.join(args.save_dir, 'config.pkl'), 'wb') as f:
         cPickle.dump(args, f)
     with open(os.path.join(args.save_dir, 'words_vocab.pkl'), 'wb') as f:
         cPickle.dump((data_loader.words, data_loader.vocab), f)
-        
+
     model = Model(args)
 
     with tf.Session() as sess:
