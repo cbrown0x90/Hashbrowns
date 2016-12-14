@@ -7,3 +7,5 @@ secret.py
 pip-selfcheck.json
 tests
 save
+input/*
+!input/input.txt
