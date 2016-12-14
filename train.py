@@ -9,14 +9,14 @@ import time
 import os
 from six.moves import cPickle
 
-from utils import TextLoader
-from model import Model
+from rnn.utils import TextLoader
+from rnn.model import Model
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', type=str, default='../input',
+    parser.add_argument('--data_dir', type=str, default='input',
                        help='data directory containing input.txt')
-    parser.add_argument('--save_dir', type=str, default='../save',
+    parser.add_argument('--save_dir', type=str, default='output',
                        help='directory to store checkpointed models')
     parser.add_argument('--rnn_size', type=int, default=256,
                        help='size of RNN hidden state')
